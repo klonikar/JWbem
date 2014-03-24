@@ -6,18 +6,43 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 
+	<properties>
+
+		<java.version>1.7</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<report.encoding>UTF-8</report.encoding>
+		<!-- Testing -->
+		<junit.version>4.8.2</junit.version>
+	</properties>
+
+
+
 	<dependencies>
+		<!-- <dependency> -->
+		<!-- <groupId>org.jinterop</groupId> -->
+		<!-- <artifactId>j-interop</artifactId> -->
+		<!-- <version>3.0.1</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jinterop</groupId> -->
+		<!-- <artifactId>j-interopdeps</artifactId> -->
+		<!-- <version>3.0.0</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+
 		<dependency>
-			<groupId>org.jinterop</groupId>
-			<artifactId>j-interop</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
+			<groupId>org.samba.jcifs</groupId>
+			<artifactId>jcifs</artifactId>
+			<version>1.2.19</version>
 		</dependency>
+
+		<!-- test -->
 		<dependency>
-			<groupId>org.jinterop</groupId>
-			<artifactId>j-interopdeps</artifactId>
-			<version>3.0.0</version>
-			<scope>provided</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
