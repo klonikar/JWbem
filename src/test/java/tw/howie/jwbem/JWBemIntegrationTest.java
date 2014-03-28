@@ -51,39 +51,13 @@ public class JWBemIntegrationTest {
 
 	private SWbemServices	v1;
 
-	private SWbemServices createV1() throws UnknownHostException, JIException {
-
-		// Create a locator object.
-		SWbemLocator loc = new SWbemLocator();
-
-		// Connect to the Windows server and return a services object.
-		return loc.connect(hostname, hostname, "root\\virtualization", username, passphrase);
-	}
-
-	private SWbemServices createSWbemServices() throws UnknownHostException, JIException {
-
-		// Create a locator object.
-		SWbemLocator loc = new SWbemLocator();
-
-		// Connect to the Windows server and return a services object.
-		return loc.connect(hostname, hostname, cimNamespace, username, passphrase);
-	}
-
-	private SWbemServices createCIMV2() throws UnknownHostException, JIException {
-
-		// Create a locator object.
-		SWbemLocator loc = new SWbemLocator();
-
-		// Connect to the Windows server and return a services object.
-		return loc.connect(hostname, hostname, "ROOT\\CIMV2", username, passphrase);
-	}
 
 	@Before
 	public void init() throws UnknownHostException, JIException {
 		// Connect to the Windows server and return a services object.
-		svc = createSWbemServices();
-		cimv2 = createCIMV2();
-		v1 = createV1();
+		svc = SWbemServicesTestUtil.createV2();
+		cimv2 = SWbemServicesTestUtil.createCIMV2();
+		v1 = SWbemServicesTestUtil.createV1();
 	}
 
 	@After
