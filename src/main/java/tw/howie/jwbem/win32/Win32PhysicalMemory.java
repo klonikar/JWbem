@@ -39,9 +39,9 @@ public class Win32PhysicalMemory extends SWbemObject {
 	}
 
 	/**
-	 * Gets the total capacity of the physical memory�in bytes.
+	 * Gets the total capacity of the physical memory in bytes.
 	 * 
-	 * @return The total capacity of the physical memory�in bytes.
+	 * @return The total capacity of the physical memory in bytes.
 	 */
 	public long getCapacity() {
 		return super.getProperty("Capacity", Long.class);

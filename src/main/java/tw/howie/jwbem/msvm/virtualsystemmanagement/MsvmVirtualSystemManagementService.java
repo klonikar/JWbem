@@ -85,7 +85,7 @@ public class MsvmVirtualSystemManagementService extends MsvmObject {
 	 * @return Virtual system summary information.
 	 * @throws Exception When an error occurs.
 	 */
-	public MsvmSummaryInformation getSummaryInformation(MsvmVirtualSystemSettingData[] settingData, Integer[] requestedInformation) throws Exception {
+	public MsvmSummaryInformation[] getSummaryInformation(MsvmVirtualSystemSettingData[] settingData, Integer[] requestedInformation) throws Exception {
 		if (this.getSummaryInformation == null) {
 			for (final SWbemMethod m : super.getMethods()) {
 				if (m.getName().equals("GetSummaryInformation")) {
@@ -121,14 +121,17 @@ public class MsvmVirtualSystemManagementService extends MsvmObject {
 		JIArray summInfoJIArr = summInfoVars.getObjectAsArray();
 		JIVariant[] summInfoJIVarArr = (JIVariant[])summInfoJIArr.getArrayInstance();
 
-		if (summInfoJIVarArr.length != 1) {
-			throw new UnsupportedOperationException("More than one summary.");
-		}
+        MsvmSummaryInformation[] ret = new MsvmSummaryInformation[summInfoJIVarArr.length];
 
-		IJIComObject summInfoCo = summInfoJIVarArr[0].getObjectAsComObject();
-		IJIDispatch summInfoDisp = (IJIDispatch)JIObjectFactory.narrowObject(summInfoCo);
+        int i = 0;
+        for(JIVariant summInfo: summInfoJIVarArr) {
+	        IJIComObject summInfoCo = summInfo.getObjectAsComObject();
+	        IJIDispatch summInfoDisp =
+	            (IJIDispatch) JIObjectFactory.narrowObject(summInfoCo);
+	        ret[i++] = new MsvmSummaryInformation(summInfoDisp, this.service);
+        }
 
-		return new MsvmSummaryInformation(summInfoDisp, this.service);
+        return ret;
 	}
 
 	// Return an array of JIVariant representing SummaryIformation of the VMs
