@@ -64,6 +64,9 @@ The steps above are tested repeatable against Windows Server 2008 R2 Enterprise 
       reg add "HKCR\AppID\{76A64158-CB41-11D1-8B02-00600806D9B6}" /ve /t REG_SZ /d "WBEM Scripting Locator" /f
       reg add "HKCR\AppID\{76A64158-CB41-11D1-8B02-00600806D9B6}" /v DllSurrogate /t REG_SZ /f
       
+      Or execute the following remote command in powershell:
+      Invoke-Command -ComputerName 16.184.47.119 -ScriptBlock { reg add "HKCR\CLSID\{76A64158-CB41-11D1-8B02-00600806D9B6}" /v AppID /t REG_SZ /d "{76A64158-CB41-11D1-8B02-00600806D9B6}" /f; reg add "HKCR\AppID\{76A64158-CB41-11D1-8B02-00600806D9B6}" /f; reg add "HKCR\AppID\{76A64158-CB41-11D1-8B02-00600806D9B6}" /ve /t REG_SZ /d "WBEM Scripting Locator" /f; reg add "HKCR\AppID\{76A64158-CB41-11D1-8B02-00600806D9B6}" /v DllSurrogate /t REG_SZ /f } -credential IWFLABS\hyperadm
+
  */
 // Sample usage:
 // java -cp j-interop.jar:j-interopdeps.jar:jWbem.jar:jcifs-1.3.18.jar:. -Dhost=16.184.47.119 -Dnamespace=root\\virtualization\\V2 -Duser=IWFLABS\\Administrator -Dpassword=1iso*help com.hp.jwbem.WbemTest
