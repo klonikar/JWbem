@@ -75,26 +75,13 @@ public class WbemTest {
 
 	public static void main(String[] args) throws Exception {
 		String serverName = System.getProperty("host", "16.184.47.119");
-		 
-		// The CIM namespace to connect to.
-		String cimNamespace = System.getProperty("namespace", "root\\virtualization\\V2");
-		 
 		// The name of the user to connect as. The format of the user name supports
 		// USERNAME, DOMAIN\\USERNAME, and USERNAME@DOMAIN.
 		String userName = System.getProperty("user", "IWFLABS\\hyperadm");
 		 
 		// The passprase for the given user.
 		String passphrase = System.getProperty("password", "1iso*help");
-		System.out.format("Connecting to host: %s, namespace: %s, user: %s, password: %s.\n", 
-				serverName, cimNamespace, userName, passphrase); 
-		// Create a locator object.
-		SWbemLocator loc = new SWbemLocator();
-		 
-		// Connect to the Windows server and return a services object.
-		SWbemServices svc = loc.connect(serverName, "127.0.0.1", cimNamespace, userName, passphrase);
-		System.out.format("*******Succesfully Connected to host: %s, namespace: %s, user: %s, password: %s!!!!!********\n", 
-				serverName, cimNamespace, userName, passphrase);
-
+		
 		try {
 			String clusterNamespace = "root\\mscluster";
 			String clusterQuery = "select * from MSCluster_cluster";
@@ -116,7 +103,18 @@ public class WbemTest {
 			ex.printStackTrace();
 			System.err.println("Error in executing cluster query: " + ex);
 		}
-		
+
+		// The namespace to connect to. It may be root\virtualization as well on older hyperv
+		String virtualizationNS = System.getProperty("namespace", "root\\virtualization\\V2");
+		System.out.format("Connecting to host: %s, namespace: %s, user: %s, password: %s.\n", 
+				serverName, virtualizationNS, userName, passphrase); 
+		// Create a locator object.
+		SWbemLocator loc = new SWbemLocator();
+		// Connect to the Windows server and return a services object.
+		SWbemServices svc = loc.connect(serverName, "127.0.0.1", virtualizationNS, userName, passphrase);
+		System.out.format("*******Succesfully Connected to host: %s, namespace: %s, user: %s, password: %s!!!!!********\n", 
+				serverName, virtualizationNS, userName, passphrase);
+
 		// Define the WQL query that returns all of a Hyper-V's virtual machines.
 		String wql = "SELECT * FROM Msvm_ComputerSystem WHERE Caption='Virtual Machine'";
 		// Execute the query.
